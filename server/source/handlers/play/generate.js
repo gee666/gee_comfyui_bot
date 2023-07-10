@@ -1,13 +1,15 @@
 import { Markup } from 'telegraf';
+import path from 'path';
 import WebSocket from 'ws';
 import crypto from 'crypto';
 import axios from 'axios';
 import config from '../../../../config';
 import { redirect_handler } from '../../../middleware/apply_handler';
 import { WaitMessage } from '../../classes/WaitMessage';
-import { make_query_object } from '../../../resources/templates/workflows/highresfix';
+import { _require } from '../../../utils/utils';
 
 
+const WORKFLOWS_PATH = path.resolve(__dirname, '../../../resources/templates/workflows');
 const MAX_WAITING_TIME = 10 * 60 * 1000;
 
 // ПРИНИМАЕТ И ПОКАЗЫВАЕТ ТОЛЬКО ОДНУ ПЕРВУЮ СОЗДАННУЮ КАРТИНКУ
@@ -21,11 +23,24 @@ export default async (ctx) => {
 
   const client_id = crypto.randomUUID();
   const current_generation = ctx.session.current_generation || {};
+  const workflowfilename = current_generation.workflow?.filename;
+  if (!workflowfilename) {
+    await wait.remove();
+    await _send_error(ctx, 'Workflow filename is not defined');
+    return;
+  }
+
+  const workflowfile = _require(`${WORKFLOWS_PATH}/${workflowfilename}`);
+  if (!workflowfile || !workflowfile.make_query_object) {
+    await wait.remove();
+    await _send_error(ctx, 'Workflow file is not found');
+    return;
+  }
+
   current_generation.client_id = client_id;
-  const queryobject = make_query_object(current_generation);
+  const queryobject = workflowfile.make_query_object(current_generation);
 
   try{
-
     const response = await axios.post(`http://${config.COMFY_UI_URL}/prompt`, JSON.stringify(queryobject), {
       headers: {
         'Content-Type': 'application/json'
