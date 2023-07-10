@@ -6,5 +6,15 @@ export default async (ctx) => {
     return;
   }
 
-  await redirect_handler(ctx, 'play');
+  ctx.text_buttons.clean();
+  ctx.text_buttons.add("Let's play!", 'play');
+
+  return await ctx.telegram.sendMessage(
+    ctx.from.id,
+    ctx.templates.message_no_data(),
+    {
+      parse_mode: 'HTML',
+      ...ctx.text_buttons.get(),
+    }
+  );
 }
