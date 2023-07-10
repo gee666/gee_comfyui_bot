@@ -24,5 +24,5 @@ play - start generating pictures
 rerun - run the last prompt again
 start - start from the beginning
 id - see your id
-help - help
+help - hepl
 */

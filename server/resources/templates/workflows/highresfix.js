@@ -5,10 +5,26 @@ export const params = {
   title: 'HighRes Fix',
   description: 'Here you can try the good variaty of 1.5 based fine tuned models for every taste. This workflow will generate a low resolution picture, then upscale it, so in the end you have a fine detailed picture',
   request_user_for: [
-    'model',
-    'ar',
-    'prompt',
-    'negative_prompt',
+    {
+      command: 'model',
+      key: 'model',
+      message: 'Choose a model you want to play with',
+    },
+    {
+      command: 'ar',
+      key: 'ar',
+      message: 'Choose aspect ratio for your image',
+    },
+    {
+      command: 'prompt',
+      key: 'prompt',
+      message: 'Write me the prompt for your masterpiece',
+    },
+    {
+      command: 'prompt',
+      key: 'negative_prompt',
+      message: "Tell me now what you don't want to see (negative prompt)",
+    },
   ]
 };
 

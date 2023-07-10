@@ -8,14 +8,14 @@ export default async (ctx, next) => {
     await _forbidden(ctx);
     return;
   }
-  const user = _.find(config.ALLOWED_USERS, { id: ctx.from.id });
+  const user_id = (config.ALLOWED_USERS || []).find(id => id === ctx.from.id);
 
-  if (!user?.id) {
+  if (!user_id) {
     await _forbidden(ctx);
     return;
   }
 
-  ctx.user = user;
+  ctx.user = { id: user_id };
   await next();
 }
 

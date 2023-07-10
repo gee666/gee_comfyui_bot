@@ -6,12 +6,3 @@ export const message_no_models = (variables = {}) => {
   Tell my creator about it!
  `;
 };
-
-
-export const message = (variables = {}) => {
-  return `
-  Choose a model you want to play with:
-
-${variables.models}
- `;
-};

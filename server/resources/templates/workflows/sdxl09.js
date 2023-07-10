@@ -5,9 +5,21 @@ export const params = {
   title: 'SD XL 0.9',
   description: 'Play with early bare SD XL 0.9 model, which came to life afficially 09th of july 2023, and now it is raw and universal, and takes more attention when prompting',
   request_user_for: [
-    'ar',
-    'prompt',
-    'negative_prompt',
+    {
+      command: 'ar',
+      key: 'ar',
+      message: 'Choose aspect ratio for your image',
+    },
+    {
+      command: 'prompt',
+      key: 'prompt',
+      message: 'Write me the prompt for your masterpiece',
+    },
+    {
+      command: 'prompt',
+      key: 'negative_prompt',
+      message: "Tell me now what you don't want to see (negative prompt)",
+    },
   ]
 };
 

@@ -18,12 +18,14 @@ export default async (ctx) => {
   if (!ctx.session.current_generation) {
     ctx.session.current_generation = {};
   }
-  ctx.session.current_generation.model = model;
 
   const current_command_index = ctx.session.current_generation.workflow.request_user_index;
+  const current_user_request = ctx.session.current_generation.workflow.request_user_for[current_command_index];
   ctx.session.current_generation.workflow.request_user_index = current_command_index + 1;
-  const next_command = ctx.session.current_generation?.workflow?.request_user_for[current_command_index + 1] || 'generate';
 
+  ctx.session.current_generation[current_user_request.key || 'model'] = model;
+
+  const next_command = ctx.session.current_generation?.workflow?.request_user_for[current_command_index + 1]?.command || 'generate';
   await redirect_handler(ctx, `play/${next_command}`);
 }
 
@@ -45,9 +47,18 @@ const _request_model = async (ctx) => {
 
   _models_message = _models_message.join('\n');
 
+  const current_command_index = ctx.session.current_generation.workflow.request_user_index;
+  const current_user_request = ctx.session.current_generation.workflow.request_user_for[current_command_index];
+
+  const message_template = `
+    ${current_user_request?.message || 'Choose model'}:
+
+${_models_message}
+  `;
+
   return await ctx.telegram.sendMessage(
     ctx.from.id,
-    ctx.templates.message({ models: _models_message }),
+    message_template,
     {
       parse_mode: 'HTML',
       ...ctx.text_buttons.get({ columns: 5 }),

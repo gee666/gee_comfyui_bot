@@ -15,3 +15,9 @@ export const message = (variables = {}) => {
 ${variables.workflows}
  `;
 };
+
+export const message_examples = (variables = {}) => {
+  return `
+  My examples made with this workflow:
+  `;
+}
