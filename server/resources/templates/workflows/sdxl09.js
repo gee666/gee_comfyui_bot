@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 export const params = {
   title: 'SD XL 0.9',
-  description: 'Play with early bare SD XL 0.9 model',
+  description: 'Play with early bare SD XL 0.9 model, which came to life afficially 09th of july 2023, and now it is raw and universal, and takes more attention when prompting',
   request_user_for: [
     'ar',
     'prompt',
@@ -117,7 +117,7 @@ export const make_query_object = (params) => {
           "sampler_name": "euler",
           "scheduler": "normal",
           "start_at_step": 0,
-          "end_at_step": 12,
+          "end_at_step": 20,
           "return_with_leftover_noise": "enable",
           "model": ["4", 0],
           "positive": ["50", 0],
@@ -134,7 +134,7 @@ export const make_query_object = (params) => {
           "cfg": 8,
           "sampler_name": "euler",
           "scheduler": "normal",
-          "start_at_step": 12,
+          "start_at_step": 20,
           "end_at_step": 1000,
           "return_with_leftover_noise": "disable",
           "model": ["11", 0],
@@ -432,7 +432,7 @@ export const make_query_object = (params) => {
               ],
               "title": "Total Steps",
               "properties": {},
-              "widgets_values": [20, "fixed"]
+              "widgets_values": [40, "fixed"]
             },
             {
               "id": 142,
@@ -480,11 +480,11 @@ export const make_query_object = (params) => {
                 "disable",
                 seed,
                 "fixed",
-                20,
+                40,
                 8,
                 "euler",
                 "normal",
-                12,
+                20,
                 1000,
                 "disable"
               ]
@@ -542,7 +542,7 @@ export const make_query_object = (params) => {
               ],
               "title": "Steps On Base Model",
               "properties": {},
-              "widgets_values": [12, "fixed"]
+              "widgets_values": [20, "fixed"]
             },
             {
               "id": 11,
@@ -780,12 +780,12 @@ export const make_query_object = (params) => {
                 "enable",
                 seed,
                 "fixed",
-                20,
+                40,
                 8,
                 "euler",
                 "normal",
                 0,
-                12,
+                20,
                 "enable"
               ]
             },

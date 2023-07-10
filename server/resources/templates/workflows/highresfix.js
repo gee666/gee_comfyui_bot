@@ -3,7 +3,7 @@ import crypto from 'crypto';
 
 export const params = {
   title: 'HighRes Fix',
-  description: 'Creates pictures with 1.5-based models and upscales them to higher resolution, refining details.',
+  description: 'Here you can try the good variaty of 1.5 based fine tuned models for every taste. This workflow will generate a low resolution picture, then upscale it, so in the end you have a fine detailed picture',
   request_user_for: [
     'model',
     'ar',
