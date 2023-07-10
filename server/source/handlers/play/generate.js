@@ -99,6 +99,13 @@ export default async (ctx) => {
   }
 }
 
+const _shorten = (prompt) => {
+  if (prompt.length > 40) {
+    return prompt.slice(0,40) + '...';
+  }
+  return prompt;
+}
+
 const _send_picture = async (ctx, image) => {
   try{
     const img_url = `http://${config.COMFY_UI_URL}/view?filename=${image.filename}&subfolder=${image.subfolder}&type=${image.type}`;
@@ -106,10 +113,17 @@ const _send_picture = async (ctx, image) => {
       responseType: 'arraybuffer',
     });
 
+    const current_generation = ctx.session.current_generation || {};
+
     const caption = `
 Here is your masterpiece, enjoy!
+
+${current_generation.model ? `<b>${current_generation.model}</b>` : ''}
+${current_generation.prompt ? `✅ ${_shorten(current_generation.prompt)}` : ''}
+${current_generation.negative_prompt ? `❌ ${_shorten(current_generation.negative_prompt)}` : ''}
+
 You want one more? Click /play.
-Or /rerun to rerun the last prompt
+Or click /rerun to run the last prompt again
     `;
 
     await ctx.telegram.sendPhoto(
@@ -118,7 +132,8 @@ Or /rerun to rerun the last prompt
         source: response.data,
       },
       {
-        caption
+        caption,
+        parse_mode: 'HTML',
       }
     );
 
