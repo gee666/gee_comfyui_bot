@@ -14,7 +14,11 @@ export default async (ctx) => {
   }
   ctx.session.current_generation.prompt = ctx.message?.text || '';
 
-  await redirect_handler(ctx, 'play/negative_prompt');
+  const current_command_index = ctx.session.current_generation.workflow.request_user_index;
+  ctx.session.current_generation.workflow.request_user_index = current_command_index + 1;
+  const next_command = ctx.session.current_generation?.workflow?.request_user_for[current_command_index + 1] || 'generate';
+
+  await redirect_handler(ctx, `play/${next_command}`);
 }
 
 const _request_prompt = async (ctx) => {

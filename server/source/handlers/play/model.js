@@ -15,10 +15,16 @@ export default async (ctx) => {
   }
 
   const model = config.SD_MODELS[model_index];
-  ctx.session.current_generation = {};
+  if (!ctx.session.current_generation) {
+    ctx.session.current_generation = {};
+  }
   ctx.session.current_generation.model = model;
 
-  await redirect_handler(ctx, 'play/ar');
+  const current_command_index = ctx.session.current_generation.workflow.request_user_index;
+  ctx.session.current_generation.workflow.request_user_index = current_command_index + 1;
+  const next_command = ctx.session.current_generation?.workflow?.request_user_for[current_command_index + 1] || 'generate';
+
+  await redirect_handler(ctx, `play/${next_command}`);
 }
 
 const _request_model = async (ctx) => {

@@ -3,28 +3,30 @@ import config from "../../../../config";
 import { redirect_handler } from '../../../middleware/apply_handler';
 
 export default async (ctx) => {
-  const width = ctx.handler.args[0];
-  const height = ctx.handler.args[1];
+  const ar = ctx.handler.args[0];
 
-  if (!width || isNaN(width) || !height || isNaN(height)) {
+  if (!ar) {
     return await _request_ar(ctx);
   }
 
   if (!ctx.session.current_generation) {
     ctx.session.current_generation = {};
   }
-  ctx.session.current_generation.width = width;
-  ctx.session.current_generation.height = height;
+  ctx.session.current_generation.ar = ar;
 
-  await redirect_handler(ctx, 'play/prompt');
+  const current_command_index = ctx.session.current_generation.workflow.request_user_index;
+  ctx.session.current_generation.workflow.request_user_index = current_command_index + 1;
+  const next_command = ctx.session.current_generation?.workflow?.request_user_for[current_command_index + 1] || 'generate';
+
+  await redirect_handler(ctx, `play/${next_command}`);
 }
 
 const _request_ar = async (ctx) => {
 
   ctx.text_buttons.clean();
-  ctx.text_buttons.add('square', `play/ar 512 512`);
-  ctx.text_buttons.add('vertical', `play/ar 512 768`);
-  ctx.text_buttons.add('horizontal', `play/ar 768 512`);
+  ctx.text_buttons.add('square', `play/ar square`);
+  ctx.text_buttons.add('vertical', `play/ar vertical`);
+  ctx.text_buttons.add('horizontal', `play/ar horizontal`);
 
 
   return await ctx.telegram.sendMessage(

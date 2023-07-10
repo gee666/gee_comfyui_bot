@@ -93,7 +93,8 @@ const _send_picture = async (ctx, image) => {
 
     const caption = `
 Here is your masterpiece, enjoy!
-You want one more? Go to the main menu and press "Play" again or use command /play.
+You want one more? Click /play.
+Or /rerun to rerun the last prompt
     `;
 
     await ctx.telegram.sendPhoto(
