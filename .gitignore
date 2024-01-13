@@ -6,3 +6,6 @@ node_modules
 .env
 log/*
 server/resources/sessions/*
+/var/www/workshop/oira666/comfyuibot/server/resources/img/workflows_custom/*
+/var/www/workshop/oira666/comfyuibot/server/resources/templates/workflows_custom/*
+SD_MODELS.json

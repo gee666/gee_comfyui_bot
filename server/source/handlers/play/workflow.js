@@ -7,8 +7,8 @@ import { redirect_handler } from '../../../middleware/apply_handler';
 import { _require } from '../../../utils/utils';
 
 
-const WORKFLOWS_PATH = path.resolve(__dirname, '../../../resources/templates/workflows');
-const WORKFLOWS_EXAMPLES_PATH = path.resolve(__dirname, '../../../resources/img/workflows');
+const WORKFLOWS_PATH = path.resolve(__dirname, '../../../resources/templates/workflows_custom');
+const WORKFLOWS_EXAMPLES_PATH = path.resolve(__dirname, '../../../resources/img/workflows_custom');
 const DEFAULT_REQUEST_USER_FOR = [
   {
     command: 'model',
@@ -36,8 +36,9 @@ export default async (ctx) => {
   const commandname = ctx.handler.args[0];
   const workflowfilename = `${commandname}.js`;
   let workflowfile;
+  const workflowfile_path = `${WORKFLOWS_PATH}/${workflowfilename}`;
   try {
-    workflowfile = _require(`${WORKFLOWS_PATH}/${workflowfilename}`);
+    workflowfile = _require(workflowfile_path);
   } catch (err) {}
 
   if (!commandname || !workflowfile) {
@@ -48,6 +49,7 @@ export default async (ctx) => {
   ctx.session.current_generation.workflow = workflowfile?.params;
   ctx.session.current_generation.workflow.commandname = commandname;
   ctx.session.current_generation.workflow.filename = workflowfilename;
+  ctx.session.current_generation.workflow.path = workflowfile_path;
   if (!ctx.session.current_generation.workflow.request_user_for?.length) {
     ctx.session.current_generation.workflow.request_user_for = DEFAULT_REQUEST_USER_FOR;
   }

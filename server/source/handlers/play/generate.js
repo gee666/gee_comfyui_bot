@@ -9,7 +9,6 @@ import { WaitMessage } from '../../classes/WaitMessage';
 import { _require } from '../../../utils/utils';
 
 
-const WORKFLOWS_PATH = path.resolve(__dirname, '../../../resources/templates/workflows');
 const MAX_WAITING_TIME = 10 * 60 * 1000;
 
 // ACCEPTS AND DISPLAYS ONLY ONE FIRST CREATED PICTURE
@@ -24,13 +23,14 @@ export default async (ctx) => {
   const client_id = crypto.randomUUID();
   const current_generation = ctx.session.current_generation || {};
   const workflowfilename = current_generation.workflow?.filename;
-  if (!workflowfilename) {
+  const workflowpath = current_generation.workflow?.path;
+  if (!workflowfilename || !workflowpath) {
     await wait.remove();
-    await _send_error(ctx, 'Workflow filename is not defined');
+    await _send_error(ctx, 'Workflow filename and path are not defined');
     return;
   }
 
-  const workflowfile = _require(`${WORKFLOWS_PATH}/${workflowfilename}`);
+  const workflowfile = _require(workflowpath);
   if (!workflowfile || !workflowfile.make_query_object) {
     await wait.remove();
     await _send_error(ctx, 'Workflow file is not found');
