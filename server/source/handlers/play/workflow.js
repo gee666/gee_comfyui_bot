@@ -44,9 +44,7 @@ export default async (ctx) => {
     return await _request_workflow(ctx);
   }
 
-  if (!ctx.session.current_generation) {
-    ctx.session.current_generation = {};
-  }
+  ctx.session.current_generation = {};
   ctx.session.current_generation.workflow = workflowfile?.params;
   ctx.session.current_generation.workflow.commandname = commandname;
   ctx.session.current_generation.workflow.filename = workflowfilename;

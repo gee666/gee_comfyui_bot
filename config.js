@@ -16,22 +16,25 @@ const config = {
   DISABLE_CACHE: Boolean(Number(process.env.DISABLE_CACHE)),
 
   SD_MODELS: [
-    'stabilityAI\\v1-5-pruned.ckpt',
-    'stabilityAI\\v2-1_512-ema-pruned.ckpt',
-    'rpg_V4.safetensors',
-    'revAnimated_v122.safetensors',
-    'reliberate_v10.safetensors',
-    'realisticVisionV30_v30VAE.safetensors',
-    'realisticVisionV20_v20.safetensors',
-    'icbinpICantBelieveIts_final.safetensors',
-    'icbinpICantBelieveIts_afterburn.safetensors',
-    'henmixReal_v40.safetensors',
-    'f222.safetensors',
-    'dreamshaper_7.safetensors',
-    'deliberate_v2.safetensors',
-    'cyberrealistic_v30.safetensors',
-    'analogMadness_v40.safetensors',
-  ],
+    { "name": "rpg_V4", "path": "1.5 based\\rpg_V4.safetensors" },
+    { "name": "revAnimated_v122", "path": "1.5 based\\revAnimated_v122.safetensors" },
+    { "name": "reliberate_v10", "path": "1.5 based\\reliberate_v10.safetensors" },
+    { "name": "photon_v1", "path": "1.5 based\\photon_v1.safetensors" },
+    { "name": "realisticVisionV51_v51VAE", "path": "1.5 based\\realisticVisionV51_v51VAE.safetensors" },
+    { "name": "icbinpICantBelieveIts_seco", "path": "1.5 based\\icbinpICantBelieveIts_seco.safetensors" },
+    { "name": "icbinpICantBelieveIts_final", "path": "1.5 based\\icbinpICantBelieveIts_final.safetensors" },
+    { "name": "icbinpICantBelieveIts_afterburn", "path": "1.5 based\\icbinpICantBelieveIts_afterburn.safetensors" },
+    { "name": "henmixReal_v40", "path": "1.5 based\\henmixReal_v40.safetensors" },
+    { "name": "dreamshaper_8", "path": "1.5 based\\dreamshaper_8.safetensors" },
+    { "name": "deliberate_v3", "path": "1.5 based\\deliberate_v3.safetensors" },
+    { "name": "cyberrealistic_v40", "path": "1.5 based\\cyberrealistic_v40.safetensors" },
+    { "name": "analogMadness_v60", "path": "1.5 based\\analogMadness_v60.safetensors" },
+    { "name": "analogMadness_v70", "path": "1.5 based\\analogMadness_v70.safetensors" },
+    { "name": "v1-5", "path": "stabilityAI\\v1-5-pruned.ckpt" },
+    { "name": "v2-1", "path": "stabilityAI\\v2-1_512-ema-pruned.ckpt" }
+  ]
+
+
 };
 
 export default config;

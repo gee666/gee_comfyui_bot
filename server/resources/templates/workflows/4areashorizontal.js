@@ -64,7 +64,7 @@ export const params = {
 export const make_query_object = (params) => {
   const {
     model_base = "dreamshaper_7.safetensors",
-    model_refine = config.SD_MODELS[0],
+    model_refine = config.SD_MODELS[0].path,
     prompt = '',
     negative_prompt = '',
     prompt1 = '',

@@ -41,7 +41,7 @@ export const params = {
  */
 export const make_query_object = (params) => {
   const {
-    model = config.SD_MODELS[0],
+    model = config.SD_MODELS[0].path,
     ar = 'square',
     prompt = '',
     negative_prompt = '',

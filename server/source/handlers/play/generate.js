@@ -12,8 +12,8 @@ import { _require } from '../../../utils/utils';
 const WORKFLOWS_PATH = path.resolve(__dirname, '../../../resources/templates/workflows');
 const MAX_WAITING_TIME = 10 * 60 * 1000;
 
-// ПРИНИМАЕТ И ПОКАЗЫВАЕТ ТОЛЬКО ОДНУ ПЕРВУЮ СОЗДАННУЮ КАРТИНКУ
-// НЕ РАБОТАЕТ С WORKFLOW КОТОРЫЕ ДЕЛАЮТ ПО НЕСКОЛЬКО КАРТИНОК
+// ACCEPTS AND DISPLAYS ONLY ONE FIRST CREATED PICTURE
+// DOES NOT WORK WITH WORKFLOWS THAT MAKE MULTIPLE IMAGES
 
 export default async (ctx) => {
   const wait = new WaitMessage(ctx);
@@ -78,8 +78,8 @@ export default async (ctx) => {
         socket.close();
         await wait.remove();
 
-        // первая картинка доделана
-        // берем первую картинку, остальные даже не ждём
+        // the first picture is done
+        // take the first picture, don't even wait for the rest.
         const firstimage = images[0];
         await _send_picture(ctx, firstimage);
       }
@@ -143,9 +143,12 @@ Or click /rerun to run the last prompt again
 }
 
 const _send_error = async (ctx, err) => {
+  const comfy_message = err.response?.data?.error?.message;
+  const message = (err?.message || 'error') + (comfy_message ? `: ${comfy_message}` : '');
+
   return await ctx.telegram.sendMessage(
     ctx.from.id,
-    ctx.common_templates.unknown_error({ error: JSON.stringify(err) }),
+    ctx.common_templates.unknown_error({ error: message }),
     {
       parse_mode: 'HTML',
       ...Markup.removeKeyboard(),

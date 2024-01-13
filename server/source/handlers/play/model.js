@@ -23,7 +23,7 @@ export default async (ctx) => {
   const current_user_request = ctx.session.current_generation.workflow.request_user_for[current_command_index];
   ctx.session.current_generation.workflow.request_user_index = current_command_index + 1;
 
-  ctx.session.current_generation[current_user_request.key || 'model'] = model;
+  ctx.session.current_generation[current_user_request.key || 'model'] = model.path;
 
   const next_command = ctx.session.current_generation?.workflow?.request_user_for[current_command_index + 1]?.command || 'generate';
   await redirect_handler(ctx, `play/${next_command}`);
@@ -36,11 +36,9 @@ const _request_model = async (ctx) => {
 
   const emoji_type = get_random_emoji_type();
   config.SD_MODELS.forEach((model, i) => {
-    const model_name = model.split('/').pop().replace(/\.[a-zA-Z0-9]+$/, '');
-
     const model_number = number_2_emoji(i+1, emoji_type);
 
-    _models_message.push(`${model_number} - ${model_name}`);
+    _models_message.push(`${model_number} - ${model.name}`);
 
     ctx.text_buttons.add(model_number, `play/model ${i}`);
   });
