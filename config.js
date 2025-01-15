@@ -1,15 +1,21 @@
-import path from 'path';
-import fs from 'fs';
+import { execSync } from 'child_process';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const sdmodels_path = path.resolve(__dirname, 'SD_MODELS.json');
-const sdmodels = JSON.parse(fs.readFileSync(sdmodels_path, 'utf8'));
+let comfyui_url = process.env.COMFY_UI_URL;
+if (comfyui_url.indexOf("PARENT_WINDOWSIP") !== -1) {
+  try {
+    const windows_ip = execSync("ip route | awk '/^default/{print $3}'", { encoding: "utf-8" }).trim();
+    comfyui_url = comfyui_url.replace("PARENT_WINDOWSIP", windows_ip);
+  } catch (error) {
+    console.error("Failed to get Windows IP address:", error);
+  }
+}
 
 const config = {
   MODE: process.env.NODE_ENV,
   DEBUG: Boolean(Number(process.env.NODE_DEBUG)),
-  COMFY_UI_URL: process.env.COMFY_UI_URL,
+  COMFY_UI_URL: comfyui_url,
   AXIOS: {
     rejectUnauthorized: Boolean(Number(process.env.AXIOS_TLS_REJECT_UNAUTHORIZED)),
   },
@@ -18,8 +24,6 @@ const config = {
   },
   ALLOWED_USERS: JSON.parse(process.env.ALLOWED_USERS),
   DISABLE_CACHE: Boolean(Number(process.env.DISABLE_CACHE)),
-
-  SD_MODELS: sdmodels
 };
 
 export default config;

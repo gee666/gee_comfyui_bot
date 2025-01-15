@@ -10,7 +10,7 @@ With this bot, you can:
 - View the resulting image (currently supports displaying one image).
 
 Here's how it works:
-1. You simply add your workflows to a designated folder.
+1. You add your workflows to a designated folder.
 2. Specify the parameters you want to ask the user for, such as prompts, models, and aspect ratios.
 3. The bot will present all your workflows to the user by name, allowing them to choose the desired workflow.
 4. It will then ask the necessary questions, run the workflow, and display the resulting image to the user.
@@ -22,6 +22,7 @@ So it's a way to share your workflows with people who don't want to learn or ins
 Before starting, ensure you have:
 - git and nodejs installed
 - A working ComfyUI instance.
+- https://github.com/Acly/comfyui-tooling-nodes installed in your ComfyUI
 - A Telegram bot token (create one using the @botFather bot on Telegram).
 
 ## Installation
@@ -35,10 +36,6 @@ npm install
 
 Create a `.env` file in the root directory, using `.env.example` as a guide. Fill it with your specific settings. Note that in this basic version, the bot grants access only to users specified in the `.env` file.
 If the user is not in your allow list, they will see their user_id in their start message, so they can tell you to add them
-
-Create the file `SD_MODELS.json` in the root directory using `SD_MODELS.example.json` as an example
-This is the list of models you want to allow your user to play with
-The "PATH" should be exactly like in your ComfuUI "Checkpoint" node, the name - as you want it to be displayed to the user
 
 Add your workflows (read below how to do that)
 
@@ -54,13 +51,13 @@ npm start
 
 To add a ComfyUI workflow to the bot:
 
-1. Create and export your ComfyUI workflow as a `.json` file.
+1. Create and export your ComfyUI workflow as a `.json` file via the menu in the ComfyUI: workflow => export API.
 2. Open the workflows folder in your bot, here: `comfyuibot/server/resources/templates/workflows_custom`
 
 ### Modifying Workflows for the Bot
 
 1. Duplicate any example workflow file.
-2. Insert your JSON code within the `return ()` statement (refer to the example workflow for format).
+2. Insert your JSON code within the `return ()` statement into the "prompt" field (refer to the example workflow for format).
 3. Update the settings at the top of the file:
    - `title`: Displayed to users in the Telegram bot.
    - `description`: Shown below the title.

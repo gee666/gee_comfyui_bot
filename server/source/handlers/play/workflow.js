@@ -13,6 +13,7 @@ const DEFAULT_REQUEST_USER_FOR = [
   {
     command: 'model',
     key: 'model',
+    load_models_args: { model_folder: 'checkpoints', base_model: 'sd15', is_inpaint: false },
     message: 'Choose a model you want to play with',
   },
   {
