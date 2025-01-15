@@ -1,12 +1,12 @@
 
-# gee_comfyui_bot
+# Telegram bot for Comfyui
 
 I created this bot to give my friends a possibility to play with my ComfyUI workflows without installing it and without even knowing what ComfyUI is.
 
 With this bot, you can:
-- Run your custom workflows directly in Telegram, without the need to install anything or have prior knowledge of ComfyUI.
+- Run your custom workflows in Telegram
 - Prompt your users for inputs, aspect ratios, and models they want to use.
-- Rerun prompts with different seeds for endless creative possibilities.
+- Rerun prompts with different seeds
 - View the resulting image (currently supports displaying one image).
 
 Here's how it works:
@@ -54,8 +54,6 @@ To add a ComfyUI workflow to the bot:
 1. Create and export your ComfyUI workflow as a `.json` file via the menu in the ComfyUI: workflow => export API.
 2. Open the workflows folder in your bot, here: `comfyuibot/server/resources/templates/workflows_custom`
 
-### Modifying Workflows for the Bot
-
 1. Duplicate any example workflow file.
 2. Insert your JSON code within the `return ()` statement into the "prompt" field (refer to the example workflow for format).
 3. Update the settings at the top of the file:
@@ -66,8 +64,8 @@ To add a ComfyUI workflow to the bot:
      - `prompt`: The bot will prompt the user for input.
      - `ar`: The bot will ask user for an aspect ratio.
    - `key`: Specifies how to reference user responses in your workflow.
-4. Locate in your workflow where to replace options with user responses (use Ctrl+F for searching). Replace default values with user-chosen options (see default workflows for examples).
-5. OPTIONAL: Add example images created with this workflow to `comfyuibot/server/resources/img/workflows_custom`. Name the folder exactly like your workflow file. The bot will display the examples to your user together with workflow descrition.
+6. Locate in your workflow where to replace options with user responses (use Ctrl+F for searching). Replace default values with user-chosen options (see default workflows for examples).
+7. OPTIONAL: Add example images created with this workflow to `comfyuibot/server/resources/img/workflows_custom`. Name the folder exactly like your workflow file. The bot will display the examples to your user together with workflow descrition.
 
 **Note:** This bot displays only one resulting image. If your workflow outputs multiple images, only the first will be shown.
 
