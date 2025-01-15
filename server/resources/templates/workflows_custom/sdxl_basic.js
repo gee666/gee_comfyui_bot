@@ -20,14 +20,14 @@ export const params = {
       command: 'prompt',
       key: 'prompt',
       message: `Write me the prompt for your masterpiece. If you don't know, try this one:
-      <pre><code>Art-photo, masterpiece, close-up portrait of a woman with long black hair, deep black eyes, wearing a sexy small yellow summer dress, in a beautiful room with a lot of flowers</code></pre>
+      <code>Art-photo, masterpiece, close-up portrait of a woman with long black hair, deep black eyes, wearing a sexy small yellow summer dress, in a beautiful room with a lot of flowers</code>
       `,
     },
     {
       command: 'prompt',
       key: 'negative_prompt',
       message: `Tell me now what you don't want to see (negative prompt). SDXL doesn't reallu like long negative prompts, so try to keep it short and simple. If you don't know, try this one:
-      <pre><code>text, watermark</code></pre>
+      <code>text, watermark</code>
       `
       },
   ]

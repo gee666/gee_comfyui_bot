@@ -26,14 +26,14 @@ export const params = {
       command: 'prompt',
       key: 'prompt',
       message: `Write me the prompt for your masterpiece. If you don't know, try this one:
-      <pre><code>Art-photo, masterpiece, close-up portrait of a woman with long black hair, deep black eyes, wearing a sexy small yellow summer dress, in a beautiful room with a lot of flowers</code></pre>
+      <code>Art-photo, masterpiece, close-up portrait of a woman with long black hair, deep black eyes, wearing a sexy small yellow summer dress, in a beautiful room with a lot of flowers</code>
       `,
     },
     {
       command: 'prompt',
       key: 'negative_prompt',
       message: `Tell me now what you don't want to see (negative prompt). If you don't know, try this one:
-      <pre><code>bad anatomy, bad proportions, disfigured, extra limbs, missing limbs, deformed, extra limbs, poorly drawn face, blurry, low quality, watermark, text, logo, signature</code></pre>
+      <code>bad anatomy, bad proportions, disfigured, extra limbs, missing limbs, deformed, extra limbs, poorly drawn face, blurry, low quality, watermark, text, logo, signature</code>
       `
       },
   ]
@@ -66,7 +66,10 @@ export const make_query_object = (params) => {
   const scaleRegEx = /(?:(\d+)x)|(?:X(\d+))/i;
   const scaleMatch = upscale_model.match(scaleRegEx);
   if (scaleMatch) {
-    scale_by = 2 / parseInt(scaleMatch[1]);
+    scale_by = parseFloat(2 / parseInt(scaleMatch[2]));
+    if (isNaN(scale_by)) {
+      scale_by = 1;
+    }
   }
 
 

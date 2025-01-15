@@ -27,7 +27,7 @@ export const params = {
       command: 'prompt',
       key: 'prompt',
       message: `Write me the prompt for your masterpiece. If you don't know, try this one:
-      <pre><code>Art-photo, masterpiece, close-up portrait of a woman with long black hair, deep black eyes, wearing a sexy small yellow summer dress, in a beautiful room with a lot of flowers</code></pre>
+      <code>Art-photo, masterpiece, close-up portrait of a woman with long black hair, deep black eyes, wearing a sexy small yellow summer dress, in a beautiful room with a lot of flowers</code>
       `,
     },
   ]
